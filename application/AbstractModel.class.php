@@ -44,6 +44,9 @@ abstract class AbstractModel {
  
 
   public function fromArray(array $array) {
+    if (!is_array($array)){
+      throw new Exception("Error Processing Request", 1);
+    }
     foreach($array as $key => $value) {
       //We need to convert first char of key to upper to get the correct 
       //format required in the setter method name

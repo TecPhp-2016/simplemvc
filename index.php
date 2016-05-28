@@ -20,11 +20,11 @@
  /*** load up the template ***/
  $registry->template = new template($registry);
 
- // if (isset($_GET['ajax']) || isset($_POST['ajax'])){
- // 	 header('Content-type: application/json');
- // 	 $registry->router->loader();
- // 	 die;
- // }
+ if (isset($_GET['ajax']) || isset($_POST['ajax'])){
+ 	 header('Content-type: application/json');
+ 	 $registry->router->loader();
+ 	 die;
+ }
 
 
 ?>
@@ -514,69 +514,7 @@
 
     <!-- Main content -->
     <section class="content">
-      <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3>150</h3>
-
-              <p>New Orders</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-bag"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-              <p>Bounce Rate</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3>44</h3>
-
-              <p>User Registrations</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3>65</h3>
-
-              <p>Unique Visitors</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-      </div>
+     
       <!-- /.row -->
       <!-- Main row -->
       <div class="row">
@@ -807,7 +745,6 @@
 <script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/bootstrap/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/plugins/morris/morris.min.js"></script>
 <!-- Sparkline -->
 <script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/plugins/sparkline/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->
@@ -829,9 +766,8 @@
 <!-- AdminLTE App -->
 <script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/dist/js/app.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/dist/js/pages/dashboard.js"></script>
-<!-- AdminLTE for demo purposes -->
 <script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/dist/js/demo.js"></script>
+<script src="<?php echo $base_url; ?>public/js/funciones.js"></script>
 </body>
 </html>
 

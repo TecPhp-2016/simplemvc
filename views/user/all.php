@@ -1,29 +1,3 @@
-<table class="table table-bordered table-hover">
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Nombre</th>
-			<th>Edad</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php
-
-		foreach ($usuarios as $key => $usuario) {
-			$linkToEdit = '../../mvc/user/update?id=' . $usuario['id'];
-			echo "<tr><td><a href='$linkToEdit'>{$usuario['id']}</a></td><td>{$usuario['name']}</td><td>{$usuario['age']}</td></tr>";
-		}
-
-		?>
-	</tbody>
-</table>
-
-<table id='tablaUsuarios'></table>
-
-
-
-
-
 <div class="box">
 	<div class="box-header">
 		<h3 class="box-title">Data Table With Full Features</h3>
@@ -67,6 +41,7 @@
 							foreach ($usuarios as $key => $usuario) {
 								$trCssClass = $key % 2 == 0 ? 'odd' : 'even';
 								$linkToEdit = '../../mvc/user/update?id=' . $usuario['id'];
+								
 								echo "<tr class='$trCssClass'>
 										<td class='sorting_1'>
 											<a href='$linkToEdit'>{$usuario['id']}</a>
@@ -76,6 +51,9 @@
 										</td>
 										<td>
 											{$usuario['age']}
+										</td>
+										<td>
+											<a href='#' class='delete' id='{$usuario['id']}'>Borrar</a>
 										</td>
 									</tr>";
 							}

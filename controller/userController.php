@@ -103,6 +103,23 @@ Class userController Extends baseController {
 
 	}
 
+	public function login(){
+		if (isset($_POST['Login'])){
+			//Logica del login
+			$user = new UserModel($this->registry);
+			$loginOk = $user->login($_POST['username'], $_POST['password']);
+
+			if ($loginOk){
+				echo "Bienvenido ". $_POST['username'];
+			}else{
+				echo "Usuario o password invalidos";
+			}
+		}else{
+			//Muestro el formulario
+			$this->registry->template->show('user/login');
+		}
+	}
+
 	public function delete(){
 		$model = new UserModel($this->registry);
                 

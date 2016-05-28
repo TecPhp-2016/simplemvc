@@ -7,23 +7,36 @@ class userModel extends AbstractModel{
     protected $password='';
     protected $age = 0;
     
-    public function __construct($registry, $id=null){
+  public function __construct($registry, $id=null){
     	parent::__construct($registry);
 
     	if (!is_null($id)){
-    		$datos = $this->getUsuario($id);
-    		$this->fromArray($datos);
+    		try {
+          $datos = $this->getUsuario($id);
+          if ($datos){
+            $this->fromArray($datos);
+          }
+        } catch (Exception $e) {
+          return false;
+        } 
     	}
     }
 
-    public function getUsuarios(){
+  public function getUsuarios(){
 		$usuarios = $this->registry->db->get($this->table_name);
 		return $usuarios;
 	}
 
 	public function getUsuario($id){
-		$usuario = $this->registry->db->where('id',$id)->getOne($this->table_name);
+    $usuario = $this->registry->db->where('id',$id)->getOne($this->table_name);
 
+    return $usuario;
+  }
+
+  public function login($username, $password){
+    $query = "SELECT * from usuarios where name = ? and password = SHA1('".$password."+salt"."') ";
+    $usuario = $this->registry->db->rawQuery($query, Array ($username));
+		
 		return $usuario;
 	}
 
@@ -31,13 +44,21 @@ class userModel extends AbstractModel{
 		$datos['password'] = $this->registry->db->func('SHA1(?)',Array ($datos['password']."+salt"));
 		$resultado = $this->registry->db->insert($this->table_name, $datos);
 
+    if ($resultado){
+      //Send notification to anyone who want to know
+      // Ok, user is created, tell anyone who's interested
+        \simple_event_dispatcher\Events::trigger('user', 'create', [
+            'username' => $datos['name']
+        ]);
+
+    }
 		return $resultado;
 	}
 
-	public function delete($id){
+	public function delete(){
 		return $this->registry->db
-					->where('id', $id)
-					->delete($this->tablename);
+					->where('id', $this->getId())
+					->delete($this->table_name);
 	}
 
 	public function update($datos){
