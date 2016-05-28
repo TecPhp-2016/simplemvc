@@ -1,7 +1,4 @@
 <?php
-phpinfo();
-$path = '/usr/local/pear';
-set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
  /*** include the controller class ***/
  include __SITE_PATH . '/application/' . 'controller_base.class.php';
@@ -41,44 +38,17 @@ $registry->db = new MysqliDb ('localhost', 'root', 'root', 'test');
 
 
 
-// Pear Mail Library
-// require_once "Mail.php";
-
-// $from = 'sandinosaso@gmail.com';
-// $to = 'sandinosaso@gmail.com';
-// $subject = 'Hi!';
-// $body = "Hi,\n\nHow are you?";
-
-// $headers = array(
-//     'From' => $from,
-//     'To' => $to,
-//     'Subject' => $subject
-// );
-
-// $smtp = Mail::factory('smtp', array(
-//         'host' => 'ssl://smtp.gmail.com',
-//         'port' => '465',
-//         'auth' => true,
-//         'username' => 'sandinoprueba@gmail.com',
-//         'password' => 'pruebasandino22'
-//     ));
-
-
-
   // Register an event for every time a user is created
   \simple_event_dispatcher\Events::register('user', 'create', function($namespace, $event, &$parameters) { 
     //Enviar un mail de registro exitoso
+    $mensaje = "Bienvenido usuario " . $parameters['username'];
 
-    // $body .= $parameters['username'];
+    // Si cualquier línea es más larga de 70 caracteres, se debería usar wordwrap()
+    $mensaje = wordwrap($mensaje, 70, "\r\n");
 
-    // $mail = $smtp->send($to, $headers, $body);
-
-    // if (PEAR::isError($mail)) {
-    //     echo('<p>' . $mail->getMessage() . '</p>');
-    // } else {
-    //     echo('<p>Message successfully sent!</p>');
-    // }
-
+    // Enviarlo
+    mail('sandinosaso@gmail.com', 'Mi título', $mensaje);
+    
   });
 
 
