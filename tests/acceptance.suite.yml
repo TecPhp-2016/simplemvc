@@ -10,3 +10,18 @@ modules:
         - PhpBrowser:
             url: http://saso.local/mvc
         - \Helper\Acceptance
+
+
+env:
+    local:
+       modules:
+            enabled:
+                - PhpBrowser:
+                    url: http://saso.local/mvc
+                - \Helper\Acceptance
+    ci:
+       modules:
+            enabled:
+                - PhpBrowser:
+                    url: http://localhost/mvc
+                - \Helper\Acceptance
