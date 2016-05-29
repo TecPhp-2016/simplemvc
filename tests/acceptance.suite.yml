@@ -11,7 +11,6 @@ modules:
             url: http://saso.local/mvc
         - \Helper\Acceptance
 
-
 env:
     local:
        modules:
@@ -23,5 +22,5 @@ env:
        modules:
             enabled:
                 - PhpBrowser:
-                    url: http://localhost/mvc
+                    url: http://localhost:8088/mvc
                 - \Helper\Acceptance
