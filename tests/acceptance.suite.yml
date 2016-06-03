@@ -10,6 +10,14 @@ modules:
         - PhpBrowser:
             url: http://saso.local/mvc
         - \Helper\Acceptance
+        - Db:
+             dsn: 'mysql:host=localhost;dbname=test'
+             user: 'root'
+             password: 'root'
+             dump: 'data/test.sql'
+             populate: true
+             cleanup: false
+             reconnect: true
 
 env:
     local:
@@ -24,3 +32,11 @@ env:
                 - PhpBrowser:
                     url: http://localhost:8088/mvc
                 - \Helper\Acceptance
+                - Db:
+                 dsn: 'mysql:host=localhost;dbname=test'
+                 user: 'root'
+                 password: ''
+                 dump: 'data/test.sql'
+                 populate: true
+                 cleanup: false
+                 reconnect: true

@@ -11,6 +11,27 @@ function deleteUser(id){
   });
 }
 
+function pairwise(list) {
+  if (list.length == 1) { return list[0]; }
+  var first = list[0],
+      rest  = list.slice(1),
+      pairs = rest.map(function (x) { return rest.concat(x); });
+
+      console.log(pairs);
+  return pairs.concat(pairwise(rest));
+}
+
+function cartesianProduct(arr)
+{
+    return arr.reduce(function(a,b){
+        return a.map(function(x){
+            return b.map(function(y){
+                return x.concat(y);
+            })
+        }).reduce(function(a,b){ return a.concat(b) },[])
+    }, [[]])
+}
+
 $(document).ready(function(){
   $('a.delete').click(function(){
     var id = $(this).attr('id');
@@ -18,4 +39,5 @@ $(document).ready(function(){
     deleteUser(id);
   });
   
+  console.log('cartesianProduct:', cartesianProduct([[1,2,3,4,5],[1,2,3,4,5]]));
 });
