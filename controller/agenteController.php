@@ -11,7 +11,7 @@ Class agenteController Extends baseController {
 
 	//Llamada de ejemplo http://localhost/mvc/agente/all?ajax=1&order=desc
 	// public function all($params=array()){
-	// 	$model = new UserModel($this->registry);
+	// 	$model = new AgenteModel($this->registry);
                 
 	// 	$usuarios = $model->getUsuarios();
 		
@@ -26,7 +26,7 @@ Class agenteController Extends baseController {
 	// 
 	
 	public function all(){
-		$model = new UserModel($this->registry);
+		$model = new AgenteModel($this->registry);
 
 		$usuarios = $model->getUsuarios();
 
@@ -38,7 +38,7 @@ Class agenteController Extends baseController {
 	public function save(){
 		if (isset($_POST['enviar'])){
 
-			$model = new UserModel($this->registry);
+			$model = new AgenteModel($this->registry);
 	        
 	        unset($_POST['enviar']);
 	        unset($_POST['id']);
@@ -66,9 +66,9 @@ Class agenteController Extends baseController {
 		if (!isset($_POST['update'])){
 		
 			if (isset($params["id"])){
-				$user = new UserModel($this->registry, $params["id"]);
+				$user = new AgenteModel($this->registry, $params["id"]);
 			}else{
-				$user = new UserModel($this->registry);
+				$user = new AgenteModel($this->registry);
 			}
 			
 			if (isset($params['ajax'])){
@@ -79,7 +79,7 @@ Class agenteController Extends baseController {
 			}
 		}else{
 			//var_dump($_POST);die;
-			$user = new UserModel($this->registry, $_POST["id"]);
+			$user = new AgenteModel($this->registry, $_POST["id"]);
 
 			unset($_POST['update']);
 			unset($_POST['id']);
@@ -106,7 +106,7 @@ Class agenteController Extends baseController {
 	public function login(){
 		if (isset($_POST['Login'])){
 			//Logica del login
-			$user = new UserModel($this->registry);
+			$user = new AgenteModel($this->registry);
 			$loginOk = $user->login($_POST['username'], $_POST['password']);
 
 			if ($loginOk){
@@ -121,7 +121,7 @@ Class agenteController Extends baseController {
 	}
 
 	public function delete(){
-		$model = new UserModel($this->registry);
+		$model = new AgenteModel($this->registry);
                 
 		$usuarios = $model->getUsuarios();
 		

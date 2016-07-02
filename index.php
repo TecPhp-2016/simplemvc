@@ -73,15 +73,15 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="/" class="navbar-brand"><b>Mesa</b>de ayuda</a>
+          <a href="/" class="navbar-brand"><b>Mesa</b> de ayuda</a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
         </div>
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Inicio</a></li>
-            <li><a href="/user/all">Usuarios</a></li>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/agente">Agentes</a></li>
           </ul>
         </div>
         <ul class="nav navbar-nav navbar-right">
@@ -126,7 +126,7 @@
      </div> 
     <!-- /.container -->
   </footer>
-  
+
 </div>
 <!-- ./wrapper -->
 <!-- jQuery 2.2.0 -->
