@@ -11,9 +11,9 @@ Class indexController Extends baseController {
 		}
 	}
 
-	public function formularios(){
+	public function formulario(){
 		if (isset($_POST['enviar'])){
-			$model = new formulariosModel($this->registry);
+			$model = new formularioModel($this->registry);
 	        
 	        unset($_POST['enviar']);
 

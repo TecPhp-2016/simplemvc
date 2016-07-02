@@ -1,11 +1,12 @@
 <?php
-class formulariosModel extends AbstractModel{
+class formularioModel extends AbstractModel{
     private $table_name = 'formularios';
 
     protected $id;
     protected $correo = '';
     protected $asunto = '';
     protected $consulta = '';
+    protected $creado = '';
     
     public function __construct($registry, $id = null){
     	parent::__construct($registry);
