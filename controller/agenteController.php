@@ -1,15 +1,15 @@
 <?php
 
-Class userController Extends baseController {
+Class agenteController Extends baseController {
 
 	public function index() {
 		/*** set a template variable ***/
 	        $this->registry->template->welcome = 'User controller index';
 		/*** load the index template ***/
-	        $this->registry->template->show('user/index');
+	        $this->registry->template->show('agente/index');
 	}
 
-	//Llamada de ejemplo http://localhost/mvc/user/all?ajax=1&order=desc
+	//Llamada de ejemplo http://localhost/mvc/agente/all?ajax=1&order=desc
 	// public function all($params=array()){
 	// 	$model = new UserModel($this->registry);
                 
@@ -19,7 +19,7 @@ Class userController Extends baseController {
 	// 		echo json_encode($usuarios);
 	// 	}else{
 	// 		$this->registry->template->usuarios = $usuarios;
-	// 		$this->registry->template->show('user/all');
+	// 		$this->registry->template->show('agente/all');
 	// 	}
 
 	// }
@@ -32,7 +32,7 @@ Class userController Extends baseController {
 
 		$this->registry->template->usuarios = $usuarios;
 
-		$this->registry->template->show('user/all');
+		$this->registry->template->show('agente/all');
 	}
 
 	public function save(){
@@ -50,14 +50,14 @@ Class userController Extends baseController {
 				$usuarios = $model->getUsuarios();
 				
 				$this->registry->template->usuarios = $usuarios;
-				$this->registry->template->show('user/all');
+				$this->registry->template->show('agente/all');
 
 			}else{
 				$this->registry->error = 'No se pudo guardar';
 				$this->registry->template->show('error404');
 			}
 		}else{
-			$this->registry->template->show('user/save');
+			$this->registry->template->show('agente/save');
 		}
 
 	}
@@ -75,7 +75,7 @@ Class userController Extends baseController {
 				echo json_encode($user->toArray());
 			}else{
 				$this->registry->template->user = $user;
-				$this->registry->template->show('user/update');
+				$this->registry->template->show('agente/update');
 			}
 		}else{
 			//var_dump($_POST);die;
@@ -91,7 +91,7 @@ Class userController Extends baseController {
 				$usuarios = $user->getUsuarios();
 				
 				$this->registry->template->usuarios = $usuarios;
-				$this->registry->template->show('user/all');
+				$this->registry->template->show('agente/all');
 
 			}else{
 				$this->registry->template->blog_heading = 'Error al guardar los datos';
@@ -116,7 +116,7 @@ Class userController Extends baseController {
 			}
 		}else{
 			//Muestro el formulario
-			$this->registry->template->show('user/login');
+			$this->registry->template->show('agente/login');
 		}
 	}
 
@@ -126,7 +126,7 @@ Class userController Extends baseController {
 		$usuarios = $model->getUsuarios();
 		
 		$this->registry->template->usuarios = $usuarios;
-		$this->registry->template->show('user/all');
+		$this->registry->template->show('agente/all');
 
 	}
 

@@ -21,9 +21,9 @@
  $registry->template = new template($registry);
 
  if (isset($_GET['ajax']) || isset($_POST['ajax'])){
- 	 header('Content-type: application/json');
- 	 $registry->router->loader();
- 	 die;
+    header('Content-type: application/json');
+    $registry->router->loader();
+    die;
  }
 ?>
 
@@ -32,7 +32,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>Mesa de ayuda</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -43,8 +43,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/dist/css/skins/_all-skins.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/plugins/iCheck/flat/blue.css">
@@ -65,6 +64,7 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
@@ -72,7 +72,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="/" class="navbar-brand"><b>Admin</b>LTE</a>
+          <a href="/" class="navbar-brand"><b>Mesa</b>de ayuda</a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
@@ -86,6 +86,15 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#/login">Iniciar Sesi&oacute;n</a></li>
           <li><a href="#/registro">Registrarse</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">Andrulo <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Perfil</a></li>
+              <li><a href="#">Cambiar a "No Disponible"</a></li>
+              <li class="divider"></li>
+              <li><a>Cerrar Sesion</a></li>
+            </ul>
+          </li>
         </ul>
       </div>
     </nav>

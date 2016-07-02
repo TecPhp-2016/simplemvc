@@ -27,7 +27,6 @@ Class Template {
         $this->registry = $registry;
     }
 
-
     /**
     *
     * @set undefined vars
@@ -43,7 +42,6 @@ Class Template {
     {
         $this->vars[$index] = $value;
     }
-
 
     function show($name) {
         $path = __SITE_PATH . '/views' . '/' . $name . '.php';

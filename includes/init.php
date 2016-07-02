@@ -28,10 +28,10 @@ function __autoload($class_name) {
   include ($file);
 }
 
- /*** a new registry object ***/
- $registry = new registry;
+/*** a new registry object ***/
+$registry = new registry;
 
- /*** create the database registry object ***/
+/*** create the database registry object ***/
 $registry->db = new MysqliDb ('localhost', 'root', 'root', 'application');
 
 // Register an event for every time a user is created
@@ -44,5 +44,4 @@ $registry->db = new MysqliDb ('localhost', 'root', 'root', 'application');
 
   // Enviarlo
   mail('andresbotta@gmail.com', 'Mi título', $mensaje);
-  
 });

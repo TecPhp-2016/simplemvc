@@ -33,7 +33,6 @@ class router {
      *
      */
     function setPath($path) {
-
     	/*** check if path i sa directory ***/
     	if (is_dir($path) == false)
     	{
