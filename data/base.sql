@@ -23,6 +23,7 @@ CREATE TABLE `formularios` (
   `correo` varchar(256) NOT NULL,
   `asunto` varchar(256) NULL,
   `consulta` text NULL,
+  `creado` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -48,3 +49,5 @@ CREATE TABLE `mensajes` (
 
 ALTER TABLE consultas ADD CONSTRAINT FK_AGENTE FOREIGN KEY (agente_id) REFERENCES agentes (id);
 ALTER TABLE mensajes ADD CONSTRAINT FK_CONSULTA FOREIGN KEY (consulta_id) REFERENCES consultas (id);
+
+INSERT INTO agentes (username, nombre, clave, admin) VALUES('admin','Administrador','0cec30e5abe96133885e851bd1a373f4305808b0', 1);
