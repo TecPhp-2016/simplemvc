@@ -95,7 +95,7 @@
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown"><?php echo $agenteLogueado['nombre'] ?> <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Perfil</a></li>
+              <li><a href="/agente/perfil">Perfil</a></li>
               <li><a href="#">Cambiar a "No Disponible"</a></li>
               <li class="divider"></li>
               <li><a href="/login/salir">Cerrar Sesion</a></li>
