@@ -99,39 +99,44 @@
   	<!-- NO HAY AGENTES DISPONIBLES -->
   	<div class="col-md-12">
           <div class="box box-info">
+          <?php if($mensajeForm) {?>
+        <div class="alert alert-success alert-dismissible">
+          <?php echo $mensajeForm; ?>
+        </div>
+        <?php }?>
             <div class="box-header with-border">
               <h3 class="box-title">Deja un mensaje</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="index/formularios" method="POST">
               <div class="box-body">
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Correo</label>
 
                   <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    <input name="correo" type="email" class="form-control" id="inputEmail" placeholder="Email">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Asunto</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputAsunto" placeholder="Asunto">
+                    <input name="asunto" type="text" class="form-control" id="inputAsunto" placeholder="Asunto">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Consulta</label>
 
                   <div class="col-sm-10">
-                    <textarea type="text" class="form-control" id="inputConsulta" placeholder="Consulta"></textarea>
+                    <textarea name="consulta" type="text" class="form-control" id="inputConsulta" placeholder="Consulta"></textarea>
                   </div>
                 </div>
 
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                
+                <input name="enviar" type="hidden">
                 <button type="submit" class="btn btn-info pull-right">Enviar Consulta</button>
               </div>
               <!-- /.box-footer -->
