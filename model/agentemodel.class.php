@@ -3,9 +3,18 @@ class agenteModel extends AbstractModel{
     private $table_name = 'agentes';
 
     protected $id;
-    protected $nombre = '';
+    protected $online = 0;
+    protected $jornada_laboral = '';
     protected $username = '';
+    protected $email = '';
     protected $clave = '';
+    protected $nombre = '';
+    protected $imagen = '';
+    protected $admin = 0;
+    protected $bloqueado = 0;
+    protected $no_disponible = 0;
+    protected $no_disponible_fecha = '';
+
     
     public function __construct($registry, $id = null){
     	parent::__construct($registry);
