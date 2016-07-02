@@ -1,3 +1,5 @@
+drop database application; create database application; use application;
+
 DROP TABLE IF EXISTS `agentes`;
 CREATE TABLE `agentes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
