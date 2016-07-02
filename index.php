@@ -1,5 +1,5 @@
 <?php
- $base_url='http://localhost/simplemvc/';
+ $base_url='http://localhost:8888/';
  
  /*** error reporting on ***/
  error_reporting(E_ALL);
@@ -119,22 +119,18 @@
   <!-- /.content-wrapper -->
 
 
-        </div>
+      </div>
   <footer class="main-footer">
     <div class="container">
-            <!-- Direct Chat -->
-
-    
-
 
      </div> 
     <!-- /.container -->
   </footer>
+  
 </div>
 <!-- ./wrapper -->
-<?php echo $base_url; ?>
 <!-- jQuery 2.2.0 -->
-<script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/plugins/jQuery/jquery-2.2.0.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.6 -->

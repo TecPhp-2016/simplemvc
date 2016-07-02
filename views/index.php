@@ -53,7 +53,7 @@
                     <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
                   </div>
                   <!-- /.direct-chat-info -->
-                  <img class="direct-chat-img" src="http://localhost/simplemvc/vendor/almasaeed2010/adminlte/dist/img/user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                  <img class="direct-chat-img" src="https://almsaeedstudio.com/themes/AdminLTE/dist/img//user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
                   <div class="direct-chat-text">
                     Texto Agente
                   </div>
@@ -68,7 +68,7 @@
                     <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
                   </div>
                   <!-- /.direct-chat-info -->
-                  <img class="direct-chat-img" src="http://localhost/simplemvc/vendor/almasaeed2010/adminlte/dist/img/user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                  <img class="direct-chat-img" src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
                   <div class="direct-chat-text">
                     Texto Cliente!
                   </div>
