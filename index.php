@@ -82,6 +82,7 @@
           <ul class="nav navbar-nav">
             <li><a href="/">Inicio</a></li>
             <li><a href="/agente">Agentes</a></li>
+            <li><a href="/consulta">Consultas</a></li>
           </ul>
         </div>
         <ul class="nav navbar-nav navbar-right">
