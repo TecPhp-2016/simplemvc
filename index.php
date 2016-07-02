@@ -87,6 +87,7 @@
             <?php if ($agenteLogueado['admin'] == 1){ ?>
             <li><a href="/agente">Agentes</a></li>
             <li><a href="/consulta">Consultas</a></li>
+            <li><a href="/formulario">Formularios</a></li>
             <?php } ?>
           </ul>
         </div>
@@ -123,15 +124,13 @@
 
     </div>
 
+    <!-- /.content-wrapper -->
+  </div>
   
-  <!-- /.content-wrapper -->
-
-
-      </div>
   <footer class="main-footer">
     <div class="container">
 
-     </div> 
+    </div> 
     <!-- /.container -->
   </footer>
 
