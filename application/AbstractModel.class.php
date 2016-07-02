@@ -29,7 +29,6 @@ abstract class AbstractModel {
         return $this->_magicProperties[$suffix];
       }else{
         throw new Exception('Getter does not exist');
-    
       }
     }
  

@@ -29,12 +29,11 @@ CREATE TABLE `formularios` (
 DROP TABLE IF EXISTS `consultas`;
 CREATE TABLE `consultas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `agente_id` varchar(256) NOT NULL,
+  `agente_id` INT NOT NULL,
   `estado` varchar(256) NULL,
   `usuario` varchar(256) NULL,
   `creado` TIMESTAMP,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`agente_id`) REFERENCES agentes(`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `mensajes`;
@@ -44,6 +43,8 @@ CREATE TABLE `mensajes` (
   `consulta_id` int(11) NOT NULL,
   `mensaje` text NOT NULL,
   `fecha` TIMESTAMP,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`consulta_id`) REFERENCES agentes(`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+ALTER TABLE consultas ADD CONSTRAINT FK_AGENTE FOREIGN KEY (agente_id) REFERENCES agentes (id);
+ALTER TABLE mensajes ADD CONSTRAINT FK_CONSULTA FOREIGN KEY (consulta_id) REFERENCES consultas (id);

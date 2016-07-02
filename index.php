@@ -1,32 +1,32 @@
 <?php
- $base_url='http://localhost:8888/';
+  session_start();
+  $base_url='http://localhost:8888/';
  
- /*** error reporting on ***/
- error_reporting(E_ALL);
+  /*** error reporting on ***/
+  error_reporting(E_ALL);
 
- /*** define the site path ***/
- $site_path = realpath(dirname(__FILE__));
- define ('__SITE_PATH', $site_path);
+  /*** define the site path ***/
+  $site_path = realpath(dirname(__FILE__));
+  define ('__SITE_PATH', $site_path);
 
- /*** include the init.php file ***/
- include 'includes/init.php';
+  /*** include the init.php file ***/
+  include 'includes/init.php';
 
- /*** load the router ***/
- $registry->router = new router($registry);
+  /*** load the router ***/
+  $registry->router = new router($registry);
 
- /*** set the controller path ***/
- $registry->router->setPath (__SITE_PATH . '/controller');
+  /*** set the controller path ***/
+  $registry->router->setPath (__SITE_PATH . '/controller');
 
- /*** load up the template ***/
- $registry->template = new template($registry);
+  /*** load up the template ***/
+  $registry->template = new template($registry);
 
- if (isset($_GET['ajax']) || isset($_POST['ajax'])){
+  if (isset($_GET['ajax']) || isset($_POST['ajax'])){
     header('Content-type: application/json');
     $registry->router->loader();
     die;
- }
+  }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,17 +86,19 @@
           </ul>
         </div>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#/login">Iniciar Sesi&oacute;n</a></li>
-          <li><a href="#/registro">Registrarse</a></li>
+          <?php if ($_SESSION && $_SESSION['agente']){ ?>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">Andrulo <span class="caret"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['agente']['nombre'] ?> <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="#">Perfil</a></li>
               <li><a href="#">Cambiar a "No Disponible"</a></li>
               <li class="divider"></li>
-              <li><a>Cerrar Sesion</a></li>
+              <li><a href="/login/salir">Cerrar Sesion</a></li>
             </ul>
           </li>
+          <?php }else{ ?>
+            <li><a href="/login">Iniciar Sesi&oacute;n</a></li>
+          <?php } ?>
         </ul>
       </div>
     </nav>
