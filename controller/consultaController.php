@@ -12,4 +12,14 @@ Class consultaController Extends baseController {
 		$this->registry->template->show('consulta/index');
 	}
 
+	public function atender($params = array()) {
+		$model = new ConsultaModel($this->registry);
+
+		$datos = $model->getById($params['id']);
+
+		$this->registry->template->datos = $datos;
+
+		$this->registry->template->show('consulta/atender');
+	}
+
 }

@@ -1,5 +1,6 @@
 <?php
   session_start();
+
   $base_url='http://localhost:8888/';
  
   /*** error reporting on ***/
@@ -20,6 +21,8 @@
 
   /*** load up the template ***/
   $registry->template = new template($registry);
+
+  $agenteLogueado = $_SESSION ? $_SESSION['agente'] : null;
 
   if (isset($_GET['ajax']) || isset($_POST['ajax'])){
     header('Content-type: application/json');
@@ -81,14 +84,16 @@
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/">Inicio</a></li>
+            <?php if ($agenteLogueado['admin'] == 1){ ?>
             <li><a href="/agente">Agentes</a></li>
             <li><a href="/consulta">Consultas</a></li>
+            <?php } ?>
           </ul>
         </div>
         <ul class="nav navbar-nav navbar-right">
-          <?php if ($_SESSION && $_SESSION['agente']){ ?>
+          <?php if ($agenteLogueado){ ?>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['agente']['nombre'] ?> <span class="caret"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown"><?php echo $agenteLogueado['nombre'] ?> <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="#">Perfil</a></li>
               <li><a href="#">Cambiar a "No Disponible"</a></li>

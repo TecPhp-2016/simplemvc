@@ -25,6 +25,7 @@ Class loginController Extends baseController {
 
 	public function salir(){
 		unset($_SESSION['agente']);
-		$this->registry->template->show('/index');
+		header("Location: http://localhost:8888");
+		die();
 	}
 }
