@@ -62,6 +62,4 @@ abstract class AbstractModel {
       return $this->_magicProperties;
   }
   
-  
 }
-

@@ -32,25 +32,17 @@ function __autoload($class_name) {
  $registry = new registry;
 
  /*** create the database registry object ***/
+$registry->db = new MysqliDb ('localhost', 'root', 'root', 'application');
 
-$registry->db = new MysqliDb ('localhost', 'root', 'root', 'test');
+// Register an event for every time a user is created
+\simple_event_dispatcher\Events::register('user', 'create', function($namespace, $event, &$parameters) { 
+  //Enviar un mail de registro exitoso
+  $mensaje = "Bienvenido usuario " . $parameters['username'];
 
+  // Si cualquier línea es más larga de 70 caracteres, se debería usar wordwrap()
+  $mensaje = wordwrap($mensaje, 70, "\r\n");
 
-
-
-  // Register an event for every time a user is created
-  \simple_event_dispatcher\Events::register('user', 'create', function($namespace, $event, &$parameters) { 
-    //Enviar un mail de registro exitoso
-    $mensaje = "Bienvenido usuario " . $parameters['username'];
-
-    // Si cualquier línea es más larga de 70 caracteres, se debería usar wordwrap()
-    $mensaje = wordwrap($mensaje, 70, "\r\n");
-
-    // Enviarlo
-    mail('sandinosaso@gmail.com', 'Mi título', $mensaje);
-    
-  });
-
-
-
-?>
+  // Enviarlo
+  mail('andresbotta@gmail.com', 'Mi título', $mensaje);
+  
+});
