@@ -1,5 +1,5 @@
 <?php
- $base_url='http://localhost:8888/';
+ $base_url='http://localhost/simplemvc/';
  
  /*** error reporting on ***/
  error_reporting(E_ALL);
@@ -57,6 +57,7 @@
   <link rel="stylesheet" href="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker-bs3.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <link rel="stylesheet" href="<?php echo $base_url; ?>public/css/style.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -108,35 +109,39 @@
       <section class="content"> 
         
         <?php $registry->router->loader(); ?>
-      
+
       </section>
       <!-- /.content -->
 
     </div>
 
-  </div>
+  
   <!-- /.content-wrapper -->
 
+
+        </div>
   <footer class="main-footer">
     <div class="container">
-      <div class="pull-right hidden-xs">
-        <b>Version</b> 2.3.3
-      </div>
-      <strong>Copyright &copy; 2016.</strong> All rights reserved.
-    </div>
+            <!-- Direct Chat -->
+
+    
+
+
+     </div> 
     <!-- /.container -->
   </footer>
 </div>
 <!-- ./wrapper -->
-
+<?php echo $base_url; ?>
 <!-- jQuery 2.2.0 -->
-<script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+<script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/dist/js/app.min.js"></script>
+
 </body>
 </html>
 
