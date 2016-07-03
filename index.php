@@ -69,6 +69,9 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
   
+  <!-- jQuery 2.2.0 -->
+  <script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/plugins/jQuery/jquery-2.2.0.min.js"></script>
+
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
@@ -136,15 +139,14 @@
 
 </div>
 <!-- ./wrapper -->
-<!-- jQuery 2.2.0 -->
-<script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/plugins/jQuery/jquery-2.2.0.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/dist/js/app.min.js"></script>
-
+<!-- PUSHER -->
+<script src="https://js.pusher.com/3.1/pusher.min.js"></script>
 </body>
 </html>
 

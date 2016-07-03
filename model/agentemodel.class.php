@@ -14,14 +14,13 @@ class agenteModel extends AbstractModel{
     protected $bloqueado = 0;
     protected $no_disponible = 0;
     protected $no_disponible_fecha = '';
-
     
     public function __construct($registry, $id = null){
     	parent::__construct($registry);
 
     	if (!is_null($id)){
     		try {
-              $datos = $this->getUsuario($id);
+              $datos = $this->getById($id);
               if ($datos){
                 $this->fromArray($datos);
               }
@@ -31,12 +30,17 @@ class agenteModel extends AbstractModel{
     	}
     }
 
-    public function getUsuarios(){
+    public function getAll(){
 		$agentes = $this->registry->db->get($this->table_name);
 		return $agentes;
 	}
 
-	public function getUsuario($id){
+    public function getAllOnline(){
+        $agentes = $this->registry->db->where('online', 1)->get($this->table_name);
+        return $agentes;
+    }
+
+	public function getById($id){
         $agente = $this->registry->db->where('id',$id)->getOne($this->table_name);
 
         return $agente;

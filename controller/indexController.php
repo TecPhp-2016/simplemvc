@@ -4,8 +4,18 @@ Class indexController Extends baseController {
 
 	public function index() {
 		if ($_SESSION && $_SESSION['agente']){
-			$this->registry->template->show('consultas-activa');
+			$model = new ConsultaModel($this->registry);
+
+			$datos = $model->getAllPendientes();
+
+			$this->registry->template->datos = $datos;
+			$this->registry->template->show('consultas-pendientes');
 		}else{
+			$model = new AgenteModel($this->registry);
+
+			$agentes = $model->getAllOnline();
+
+			$this->registry->template->agentes = $agentes;
 			$this->registry->template->mensajeForm = '';
 			$this->registry->template->show('index');
 		}
@@ -16,7 +26,6 @@ Class indexController Extends baseController {
 			$model = new formularioModel($this->registry);
 	        
 	        unset($_POST['enviar']);
-
 
 			$insertOk = $model->save($_POST);
 

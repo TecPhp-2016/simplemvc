@@ -16,6 +16,8 @@
 
 require_once(__SITE_PATH . '/application/' .'Events.php');
 
+require_once(__SITE_PATH . '/vendor/pusher/pusher-php-server/lib/Pusher.php');
+
  /*** auto load model classes ***/
 function __autoload($class_name) {
     $filename = strtolower($class_name) . '.class.php';

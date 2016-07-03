@@ -30,7 +30,7 @@ CREATE TABLE `formularios` (
 DROP TABLE IF EXISTS `consultas`;
 CREATE TABLE `consultas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `agente_id` INT NOT NULL,
+  `agente_id` int(11) NULL,
   `estado` varchar(256) NULL,
   `usuario` varchar(256) NULL,
   `creado` TIMESTAMP,
@@ -43,7 +43,7 @@ CREATE TABLE `mensajes` (
   `autor` varchar(256) NULL,
   `consulta_id` int(11) NOT NULL,
   `mensaje` text NOT NULL,
-  `fecha` TIMESTAMP,
+  `fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

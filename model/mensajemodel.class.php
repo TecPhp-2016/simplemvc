@@ -1,12 +1,12 @@
 <?php
-class consultaModel extends AbstractModel{
-    private $table_name = 'consultas';
+class mensajeModel extends AbstractModel{
+    private $table_name = 'mensajes';
 
     protected $id;
-    protected $agente_id;
-    protected $estado = '';
-    protected $usuario = '';
-    protected $creado = '';
+    protected $consulta_id;
+    protected $autor = '';
+    protected $mensaje = '';
+    protected $fecha = '';
     
     public function __construct($registry, $id = null){
     	parent::__construct($registry);
@@ -27,11 +27,6 @@ class consultaModel extends AbstractModel{
 		$data = $this->registry->db->get($this->table_name);
 		return $data;
 	}
-
-    public function getAllPendientes(){
-        $data = $this->registry->db->where('estado', 'pendiente')->get($this->table_name);
-        return $data;
-    }
 
 	public function getById($id){
         $data = $this->registry->db->where('id',$id)->getOne($this->table_name);

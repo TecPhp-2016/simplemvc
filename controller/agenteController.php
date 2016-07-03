@@ -1,12 +1,11 @@
 <?php
 
 Class agenteController Extends baseController {
-
 	
 	public function index(){
 		$model = new AgenteModel($this->registry);
 
-		$usuarios = $model->getUsuarios();
+		$usuarios = $model->getAll();
 
 		$this->registry->template->usuarios = $usuarios;
 
@@ -15,14 +14,11 @@ Class agenteController Extends baseController {
 
 	public function perfil($params=array()){
 		if (!isset($_POST['update'])){
-			$agenteLogueado = $_SESSION ? $_SESSION['agente'] : null;
-
 			$model = new AgenteModel($this->registry);
 
-			$user = $model->getUsuario($agenteLogueado["id"]);
+			$user = $model->getById($_SESSION['agente']["id"]);
 
 			$this->registry->template->user = $user;
-
 			$this->registry->template->show('agente/perfil');
 		}else{
 			//var_dump($_POST);die;
@@ -43,7 +39,6 @@ Class agenteController Extends baseController {
 				$this->registry->template->error = 'No se pudo guardar';
 				$this->registry->template->show('error404');
 			}
-
 		}
 	}
 
@@ -53,11 +48,10 @@ Class agenteController Extends baseController {
 	        
 	        unset($_POST['enviar']);
 
-
 			$insertOk = $model->save($_POST);
 
 			if ($insertOk){
-				$usuarios = $model->getUsuarios();
+				$usuarios = $model->getAll();
 				
 				$this->registry->template->usuarios = $usuarios;
 				$this->registry->template->show('agente/index');
@@ -69,7 +63,6 @@ Class agenteController Extends baseController {
 		}else{
 			$this->registry->template->show('agente/save');
 		}
-
 	}
 
 	public function update($params=array()){
@@ -88,7 +81,6 @@ Class agenteController Extends baseController {
 				$this->registry->template->show('agente/update');
 			}
 		}else{
-			//var_dump($_POST);die;
 			$user = new AgenteModel($this->registry, $_POST["id"]);
 
 			unset($_POST['update']);
@@ -98,7 +90,7 @@ Class agenteController Extends baseController {
 			
 			if ($insertOk){
 
-				$usuarios = $user->getUsuarios();
+				$usuarios = $user->getAll();
 				
 				$agenteLogueado = $_SESSION ? $_SESSION['agente'] : null;
 				$agenteLogueado['nombre'] = $_POST['nombre'];
@@ -117,7 +109,7 @@ Class agenteController Extends baseController {
 	public function delete(){
 		$model = new AgenteModel($this->registry);
                 
-		$usuarios = $model->getUsuarios();
+		$usuarios = $model->getAll();
 		
 		$this->registry->template->usuarios = $usuarios;
 		$this->registry->template->show('agente/all');

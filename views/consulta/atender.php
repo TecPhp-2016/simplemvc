@@ -1,53 +1,94 @@
-<div class="box box-default">
+<?php 
+  $usuario = $_SESSION['agente'];
+?>
+<div class="box box-default direct-chat direct-chat-primary">
   <div class="box-header with-border">
     <h3 class="box-title">Consulta</h3>
   </div>
   <div class="box-body">
-    <!-- Conversations are loaded here -->
-    <div class="direct-chat-messages">
-      <!-- Message. Default to the left -->
-      <div class="direct-chat-msg">
-        <div class="direct-chat-info clearfix">
-          <span class="direct-chat-name pull-left">Nombre Agente</span>
-          <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-        </div>
-        <!-- /.direct-chat-info -->
-        <img class="direct-chat-img" src="https://almsaeedstudio.com/themes/AdminLTE/dist/img//user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-        <div class="direct-chat-text">
-          Texto Agente
-        </div>
-        <!-- /.direct-chat-text -->
-      </div>
-      <!-- /.direct-chat-msg -->
 
-      <!-- Message to the right -->
-      <div class="direct-chat-msg right">
-        <div class="direct-chat-info clearfix">
-          <span class="direct-chat-name pull-right">Nombre Cliente</span>
-          <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-        </div>
-        <!-- /.direct-chat-info -->
-        <img class="direct-chat-img" src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-        <div class="direct-chat-text">
-          Texto Cliente!
-        </div>
-        <!-- /.direct-chat-text -->
-      </div>
-      <!-- /.direct-chat-msg -->
-    </div>
-    <!--/.direct-chat-messages-->
+  <div class="direct-chat-messages" id="direct-chat-messages" style="height:350px;">
+
+  </div>
 
   </div>
   <!-- /.box-body -->
   <div class="box-footer">
-    <form action="#" method="post">
-      <div class="input-group">
-        <input type="text" name="message" placeholder="Escribe la Consulta..." class="form-control">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-primary btn-flat">Consultar</button>
-            </span>
-      </div>
-    </form>
+    <div class="input-group">
+      <input type="text" id="message" placeholder="Responder..." class="form-control">
+        <span class="input-group-btn">
+          <input type="hidden" id="autor" value="<?= $usuario['nombre']?>" />
+          <input type="hidden" id="consulta_id" value="<?= $datos['id']?>"/>
+          <button type="button" onClick="enviarMensaje()" class="btn btn-primary btn-flat">Enviar</button>
+        </span>
+    </div>
   </div>
   <!-- /.box-body -->
 </div>
+
+<script>
+  $( document ).ready(function() {
+    var pusher  = new Pusher('bfe07b86fb5d707a3087', { encrypted: true });
+    var channel = pusher.subscribe('consulta-' + <?= $datos['id']?>);
+    channel.bind('mensaje', function(data) {
+      if (data.autor == 'usuario'){
+        var imagen = 'http://localhost:8888/vendor/almasaeed2010/adminlte/dist/img/avatar04.png';
+        mostrarMensaje(data.autor, data.mensaje, data.fecha, imagen);
+      }
+    });
+  });
+
+  $('#message').keypress(function( event ) {
+    if ( event.which == 13 ) {
+      enviarMensaje();
+      event.preventDefault();
+    }
+  });
+
+  function enviarMensaje(){
+    var autor       = $('#autor').val();
+    var consulta_id = $('#consulta_id').val();
+    var message     = $('#message').val();
+    var fecha       = new Date();
+
+    $.ajax({
+      method  : 'POST',
+      url     : 'http://localhost:8888/consulta/mensajeSave?ajax=true',
+      data    : { consulta_id: consulta_id, autor : 'agente', mensaje : message, enviar : true}
+    })
+    .done(function( result ) {
+      if (result.success){
+        var imagen = '<?= $usuario['imagen']?>';
+        mostrarMensaje(autor, message, fecha, imagen, true)
+      }
+    });
+  }
+
+  function mostrarMensaje(autor, message, fecha, imagen, agente){
+    $('#message').val('');
+
+    if(agente){
+      var html =  '<div class="direct-chat-msg right">' +
+                  '<div class="direct-chat-info clearfix">' +
+                    '<span class="direct-chat-name pull-right">' + autor + '</span>' +
+                    '<span class="direct-chat-timestamp pull-left">' + fecha + '</span>' +
+                  '</div>' +
+                  '<img class="direct-chat-img" src="' + imagen + '">' +
+                  '<div class="direct-chat-text">' + message + '</div>' +
+                '</div>';
+    }else{
+      var html =  '<div class="direct-chat-msg">' +
+                  '<div class="direct-chat-info clearfix">' +
+                    '<span class="direct-chat-name pull-left">' + autor + '</span>' +
+                    '<span class="direct-chat-timestamp pull-right">' + fecha + '</span>' +
+                  '</div>' +
+                  '<img class="direct-chat-img" src="' + imagen + '">' +
+                  '<div class="direct-chat-text">' + message + '</div>' +
+                '</div>';
+    }
+
+    $('#direct-chat-messages').append(html);
+
+    $('#direct-chat-messages').scrollTop($('#direct-chat-messages')[0].scrollHeight);
+  }
+</script>

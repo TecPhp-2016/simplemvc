@@ -11,6 +11,10 @@ Class loginController Extends baseController {
 			if ($loginOk){
 				$_SESSION['agente'] = current($loginOk);
 
+				$user = new AgenteModel($this->registry, $_SESSION['agente']["id"]);
+
+				$user->update(['online' => 1]);
+
 				header("Location: http://localhost:8888");
 				die();
 			}else{
@@ -24,6 +28,9 @@ Class loginController Extends baseController {
 	}
 
 	public function salir(){
+		$user = new AgenteModel($this->registry, $_SESSION['agente']["id"]);
+		$user->update(['online' => 0]);
+
 		unset($_SESSION['agente']);
 		header("Location: http://localhost:8888");
 		die();
