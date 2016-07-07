@@ -39,7 +39,25 @@ Class agenteController Extends baseController {
 
 		$this->registry->template->show('agente/index');
 	}
-
+	public function disponible(){
+		if(isset($_POST["update"])){
+			$usuario = $_SESSION['agente'];
+			$model = new AgenteModel($this->registry, $usuario["id"]);
+			$usuarios = $model->getAll();
+			$usuario['no_disponible'] = $usuario['no_disponible'] == 0 ? 1 : 0;
+			
+			$_SESSION['agente'] = $usuario;
+			unset($usuario["id"]);
+			$model->update($usuario);
+			
+			$this->registry->template->usuarios = $usuarios;
+			$this->registry->template->show('agente/index');
+		}else{
+			$usuario = $_SESSION['agente'];
+			$this->registry->template->usuario = $usuario;
+			$this->registry->template->show('agente/disponible');
+		}
+	}
 	public function perfil($params=array()){
 		$model = new AgenteModel($this->registry);
 		if(isset($params["id"])){
