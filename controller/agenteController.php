@@ -54,7 +54,7 @@ Class agenteController Extends baseController {
 
 			unset($_POST['update']);
 			unset($_POST['id']);
-	        
+	        $this->saveImage($_POST["username"]);
 			$insertOk = $user->update($_POST);
 			
 			if ($insertOk){
@@ -113,7 +113,7 @@ Class agenteController Extends baseController {
 
 			unset($_POST['update']);
 			unset($_POST['id']);
-	        
+	        $this->saveImage($_POST["username"]);
 			$insertOk = $user->update($_POST);
 			
 			if ($insertOk){

@@ -2,7 +2,7 @@
 	<div class="col-md-12">
 		<div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="<?= getcwd().'\uploads\\'.empty($user['imagen'])?'nop.png':$user['imagen']?>" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" src="<?= empty($user['imagen'])?'/uploads/nop.png':'/uploads/'.$user['imagen']?>" alt="User profile picture">
 
               <h3 class="profile-username text-center"><?= $user['nombre']; ?></h3>
 
@@ -23,7 +23,7 @@
 					</li>
 				</ul>
 				<div class="col-md-12">
-					<form class="form-horizontal" action="/agente/perfil" method="POST">	  
+					<form class="form-horizontal" action="/agente/perfil" method="POST"  enctype="multipart/form-data">	  
 			            <div class="form-group">
 				            <div class="input-group">
 				                <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -31,8 +31,10 @@
 				              </div>
 			          	</div>  
 						<div class="form-group">
-		                	<label for="exampleInputFile">Nueva Imagen</label>
-		                	<input name="imagen" type="file" id="exampleInputFile" value="<?php= '/uploads/'.empty($user['imagen'])?'nop.png':$user['imagen']?>">
+						<label for="exampleInputFile">Imagen</label>
+                    	<input name="imagen" type="file" id="exampleInputFile" onchange="readURL(this);" style="cursor:pointer;opacity: 0;width: 100px;height: 100px;position: absolute;margin-top: 0px;">
+                    		<img src="<?php echo'/uploads/'.(empty($user['imagen'])?'nop.png':$user['imagen'])?>" id="preview-profile" style="display:block;width: 100px;height: 100px;"/>
+                    		<p class="help-block">Selecciona una foto de perfil del usuario</p>
 		              	</div>
 						<div class="form-group">
 		                	<input name="update" type="hidden">
@@ -44,6 +46,20 @@
             </div>
             <!-- /.box-body -->
       	</div>
+      	 <script>
+      function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById('preview-profile').setAttribute('src', e.target.result); 
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+      }
+    </script>
 		<!-- /.box -->
 	</div>
 </div>
