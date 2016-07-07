@@ -22,6 +22,7 @@
                   <th>Disponible</th>
                   <th>ND Desde</th>
                   <th>Jornada Laboral</th>
+                  <th>Actions</th>
                 </tr>
                 
                 <?php
@@ -37,7 +38,7 @@
 					<td><?php if ($usuario['bloqueado'] == 1) { ?> <span class="label label-danger">Bloqueado</span> <?php } else { ?> <span class="label label-success">Activo</span> <?php } ?> </td>
 					<td><?php echo $usuario['no_disponible_fecha']; ?></td> 
 					<td><?php echo $usuario['jornada_laboral']; ?></td>  	
-
+          <td><a style="width: 100%;" href="/agente/perfil?id=<?php echo $usuario['id']?>" class="pull-right btn btn-primary btn-flat">Edit</a></td>
 
 					</tr>
 				<?php } ?>

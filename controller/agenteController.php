@@ -27,7 +27,7 @@ Class agenteController Extends baseController {
 			    echo "Sorry, your file is too large.";
 			    $uploadOk = 0;
 			}
-			move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file) or die();
+			move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file);
 			return $username.'.'.$imageFileType;
 	}
 	public function index(){
@@ -41,28 +41,29 @@ Class agenteController Extends baseController {
 	}
 
 	public function perfil($params=array()){
-		if (!isset($_POST['update'])){
-			$model = new AgenteModel($this->registry);
-
+		$model = new AgenteModel($this->registry);
+		if(isset($params["id"])){
+			$datos = $model->getById($params["id"]);
+			$this->registry->template->user = $datos;
+			$this->registry->template->show('agente/perfil');
+		}else if (!isset($_POST['update'])){
 			$user = $model->getById($_SESSION['agente']["id"]);
-
 			$this->registry->template->user = $user;
 			$this->registry->template->show('agente/perfil');
 		}else{
-			//var_dump($_POST);die;
 			$user = new AgenteModel($this->registry, $_POST["id"]);
-
 			unset($_POST['update']);
 			$userLogged = $user->getById($_POST['id']);
-
 			unset($_POST['id']);
- 			$_POST['imagen'] = $this->saveImage($userLogged["email"]);
+			if(!empty($_FILES["imagen"]["tmp_name"])){
+
+ 				$_POST['imagen'] = $this->saveImage($userLogged["email"]);
+			}
 			$insertOk = $user->update($_POST);
 			
 			if ($insertOk){
 				$_SESSION['agente']['nombre'] = $_POST['nombre'];
 				$usuarios = $user->getAll();
-
 				$this->registry->template->usuarios = $usuarios;
 				$this->registry->template->show('agente/index');
 			}else{
@@ -78,7 +79,10 @@ Class agenteController Extends baseController {
 			$model = new AgenteModel($this->registry);
 	        
 	        unset($_POST['enviar']);
- 			$_POST['imagen'] = $this->saveImage($_POST["email"]);
+	        if(!empty($_FILES["imagen"] ["tmp_name"])){
+
+ 				$_POST['imagen'] = $this->saveImage($_POST["email"]);
+			}
 			$insertOk = $model->save($_POST);
 
 			if ($insertOk){
@@ -116,7 +120,9 @@ Class agenteController Extends baseController {
 
 			unset($_POST['update']);
 			unset($_POST['id']);
- 			$_POST['imagen'] = $_POST['imagen'] = $this->saveImage($userLogged["email"]);
+			if(!empty($_FILES["imagen"] ["tmp_name"])){
+ 				$_POST['imagen'] = $_POST['imagen'] = $this->saveImage($userLogged["email"]);
+	        }
 	        $insertOk = $user->update($_POST);
 			
 			if ($insertOk){
