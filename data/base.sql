@@ -1,4 +1,4 @@
-drop database application; create database application; use application;
+drop database IF EXISTS application; create database application; use application;
 
 DROP TABLE IF EXISTS `agentes`;
 CREATE TABLE `agentes` (

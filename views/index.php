@@ -1,4 +1,4 @@
-<?php if (count($agentes) > 0) {?>
+<?php if (isset($agentes) && count($agentes) > 0) {?>
 <div class="box box-default">
   <div class="box-header with-border">
     <h3 class="box-title"><b><?= count($agentes)?></b> Agentes disponibles</h3>
@@ -204,17 +204,9 @@
 </div>
 
 <div class="box box-info">
-  <?php if($mensajeForm) {?>
-    <div class="alert alert-success alert-dismissible">
-      <?php echo $mensajeForm; ?>
-    </div>
-  <?php }?>
   <div class="box-header with-border">
     <h3 class="box-title">Deja un mensaje</h3>
   </div>
-  <!-- /.box-header -->
-  <!-- form start -->
-  <form class="form-horizontal" action="index/formulario" method="POST">
     <div class="box-body">
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Correo</label>

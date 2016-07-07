@@ -2,7 +2,7 @@
 
 Class formularioController Extends baseController {
 
-	public function index() {
+	public function form() {
 		$model = new FormularioModel($this->registry);
 
 		$datos = $model->getAll();
