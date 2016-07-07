@@ -54,6 +54,7 @@ Class agenteController Extends baseController {
 				
 				$usuarios = $model->getAll();
 				var_dump($usuarios);
+				
 				$this->registry->template->usuarios = $usuarios;
 				$this->registry->template->show('agente/index');
 
