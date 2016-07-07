@@ -52,15 +52,28 @@ Class agenteController Extends baseController {
 			$this->registry->template->show('agente/perfil');
 		}else{
 			$user = new AgenteModel($this->registry, $_POST["id"]);
+			if(isset($_POST['delete'])){
+				unset($_POST['delete']);
+				$user->delete();
+				$usuarios = $user->getAll();
+				$this->registry->template->usuarios = $usuarios;
+				$this->registry->template->show('agente/index');
+				return;
+			}
 			unset($_POST['update']);
 			$userLogged = $user->getById($_POST['id']);
 			unset($_POST['id']);
+			
+			if(isset($_POST['bloqueado'])){
+				$_POST['bloqueado'] = true;	
+			}else{
+				$_POST['bloqueado'] = false;	
+			}
 			if(!empty($_FILES["imagen"]["tmp_name"])){
 
  				$_POST['imagen'] = $this->saveImage($userLogged["email"]);
 			}
 			$insertOk = $user->update($_POST);
-			
 			if ($insertOk){
 				$_SESSION['agente']['nombre'] = $_POST['nombre'];
 				$usuarios = $user->getAll();
@@ -128,7 +141,7 @@ Class agenteController Extends baseController {
 			if ($insertOk){
 
 				$usuarios = $user->getAll();
-				
+
 				$agenteLogueado = $_SESSION ? $_SESSION['agente'] : null;
 				$agenteLogueado['nombre'] = $_POST['nombre'];
 				$this->registry->template->usuarios = $usuarios;

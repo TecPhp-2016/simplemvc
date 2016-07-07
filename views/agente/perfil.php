@@ -39,6 +39,10 @@
 						<div class="form-group">
 		                	<input name="update" type="hidden">
 							<input name="id" type="hidden" value="<?= $user['id'];?>">
+							<label for="delete">Delete</label>	
+							<input type="checkbox" id="delete" name="delete"/>
+							<label for="block">Block</label>
+							<input type="checkbox" id="block" name="bloqueado" value="<?php echo $user['bloqueado']?>" <?php echo ($user['bloqueado'] === 1?'checked':'')?>/>
 							<button type="submit" class="btn btn-info pull-right">Actualizar</button>
 		              	</div>
 		      		</form>
