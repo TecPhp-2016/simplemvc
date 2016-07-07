@@ -13,7 +13,7 @@
             foreach ($agentes as $key => $agente) {
           ?>
             <li>
-              <img src="<?='/uploads/'. empty($agente['imagen'])?'nop.png':$agente['imagen']?>">
+              <img src="<?=empty($agente['imagen'])?'/uploads/nop.png':'/uploads/'.$agente['imagen']?>">
               <a class="users-list-name" style="font-size: 11px;"><?= $agente['nombre']; ?></a>
             </li> 
           <?php } ?>
