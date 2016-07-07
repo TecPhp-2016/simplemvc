@@ -50,4 +50,4 @@ CREATE TABLE `mensajes` (
 ALTER TABLE consultas ADD CONSTRAINT FK_AGENTE FOREIGN KEY (agente_id) REFERENCES agentes (id);
 ALTER TABLE mensajes ADD CONSTRAINT FK_CONSULTA FOREIGN KEY (consulta_id) REFERENCES consultas (id);
 
-INSERT INTO agentes (username, nombre, clave, admin) VALUES('admin','Administrador','0cec30e5abe96133885e851bd1a373f4305808b0', 1);
+INSERT INTO agentes (username, nombre,email,imagen, clave, admin) VALUES('admin','Administrador','andrulo@maraca.com','andrulo@maraca.com.jpg','0cec30e5abe96133885e851bd1a373f4305808b0', 1);

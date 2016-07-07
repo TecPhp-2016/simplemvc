@@ -20,15 +20,15 @@ Class agenteController Extends baseController {
 			}
 			// Check if file already exists
 			if (file_exists($target_file)) {
-			    echo "Sorry, file already exists.";
-			    $uploadOk = 0;
+			    unlink($target_file);
 			}
 			// Check file size
-			if ($_FILES["imagen"]["size"] > 500000) {
+			if ($_FILES["imagen"]["size"] > 50000000) {
 			    echo "Sorry, your file is too large.";
 			    $uploadOk = 0;
 			}
-			 move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file) or die();
+			move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file) or die();
+			return $username.'.'.$imageFileType;
 	}
 	public function index(){
 		$model = new AgenteModel($this->registry);
@@ -53,15 +53,18 @@ Class agenteController Extends baseController {
 			$user = new AgenteModel($this->registry, $_POST["id"]);
 
 			unset($_POST['update']);
+			$userLogged = $user->getById($_POST['id']);
+
 			unset($_POST['id']);
-	        $this->saveImage($_POST["username"]);
+ 			$_POST['imagen'] = $this->saveImage($userLogged["email"]);
 			$insertOk = $user->update($_POST);
 			
 			if ($insertOk){
 				$_SESSION['agente']['nombre'] = $_POST['nombre'];
+				$usuarios = $user->getAll();
 
-				header("Location: http://localhost:8888");
-				die();
+				$this->registry->template->usuarios = $usuarios;
+				$this->registry->template->show('agente/index');
 			}else{
 				$this->registry->template->blog_heading = 'Error al guardar los datos';
 				$this->registry->template->error = 'No se pudo guardar';
@@ -75,12 +78,12 @@ Class agenteController Extends baseController {
 			$model = new AgenteModel($this->registry);
 	        
 	        unset($_POST['enviar']);
+ 			$_POST['imagen'] = $this->saveImage($_POST["email"]);
 			$insertOk = $model->save($_POST);
 
 			if ($insertOk){
 				
 				$usuarios = $model->getAll();
-				$this->saveImage($_POST["username"]);
 				$this->registry->template->usuarios = $usuarios;
 				$this->registry->template->show('agente/index');
 
@@ -113,8 +116,8 @@ Class agenteController Extends baseController {
 
 			unset($_POST['update']);
 			unset($_POST['id']);
-	        $this->saveImage($_POST["username"]);
-			$insertOk = $user->update($_POST);
+ 			$_POST['imagen'] = $_POST['imagen'] = $this->saveImage($userLogged["email"]);
+	        $insertOk = $user->update($_POST);
 			
 			if ($insertOk){
 
