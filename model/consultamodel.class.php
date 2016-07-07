@@ -13,7 +13,7 @@ class consultaModel extends AbstractModel{
 
     	if (!is_null($id)){
     		try {
-              $datos = $this->getUsuario($id);
+              $datos = $this->getById($id);
               if ($datos){
                 $this->fromArray($datos);
               }
@@ -24,12 +24,17 @@ class consultaModel extends AbstractModel{
     }
 
     public function getAll(){
-		$data = $this->registry->db->get($this->table_name);
+		$data = $this->registry->db->where('estado', 'finalizada','!=')->get($this->table_name);
 		return $data;
 	}
 
     public function getAllPendientes(){
         $data = $this->registry->db->where('estado', 'pendiente')->get($this->table_name);
+        return $data;
+    }
+
+    public function getAllMine($id){
+        $data = $this->registry->db->where('estado', 'finalizada','!=')->where('agente_id', $id)->get($this->table_name);
         return $data;
     }
 

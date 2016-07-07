@@ -4,14 +4,45 @@
 <div class="box box-default direct-chat direct-chat-primary">
   <div class="box-header with-border">
     <h3 class="box-title">Consulta</h3>
+    <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
+      <?php
+        if($_SESSION['agente']['id']==$datos['agente_id'] && $datos['estado'] === "atendida"){
+      ?>
+          <div class="box-terminar">
+            <button type="button" onClick="terminarConsulta()" class="btn btn-primary btn-flat">Terminar</button>
+          </div>
+      <?php
+        }
+      ?>
+    </div>
   </div>
+  
   <div class="box-body">
 
   <div class="direct-chat-messages" id="direct-chat-messages" style="height:350px;">
+    <?php
+      $usrImg = 'http://localhost:8888/vendor/almasaeed2010/adminlte/dist/img/avatar04.png';
+      foreach ($datosConsulta as $consulta) {
+    ?>
+      <div class="direct-chat-msg <?= $consulta['autor'] == 'agente' ? 'right' : '' ?>">
+        <div class="direct-chat-info clearfix">
+          <span class="direct-chat-name pull-<?= $consulta['autor'] == 'agente' ? 'right' : 'leff' ?>"> <?= $consulta['autor'] ?> </span>
+          <span class="direct-chat-timestamp pull-<?= $consulta['autor'] == 'agente' ? 'right' : 'leff' ?>"> <?= date('d/m/Y h:m:s',strtotime($consulta['fecha'])); ?> </span>
+        </div>
+        <img class="direct-chat-img" src="<?= $consulta['autor'] == 'agente' ? $datosAgente['imagen'] : $usrImg ?>">
+        <div class="direct-chat-text"> <?= $consulta['mensaje'] ?> </div>
+      </div>
+    
+    <?php
+      }
 
+    ?>
   </div>
 
   </div>
+  <?php
+    if($_SESSION['agente']['id']==$datos['agente_id']){
+  ?>
   <!-- /.box-body -->
   <div class="box-footer">
     <div class="input-group">
@@ -23,6 +54,9 @@
         </span>
     </div>
   </div>
+  <?php
+    }
+  ?>
   <!-- /.box-body -->
 </div>
 
@@ -62,6 +96,27 @@
         mostrarMensaje(autor, message, fecha, imagen, true)
       }
     });
+  }
+
+  function terminarConsulta(){
+    var consulta_id = $('#consulta_id').val();
+    $.ajax({
+      method  : 'POST',
+      url     : 'http://localhost:8888/consulta/terminar?ajax=true',
+      data    : { id: consulta_id, estado: 'finalizada', enviar : true}
+    })
+    .done(function( result ) {
+      console.log('result');
+      console.log('result');
+      if (result.success){
+        ocultarControler();
+      }
+    });
+  }
+
+  function ocultarControler(){
+    $('.box-footer').hide();
+    $('.box-terminar').hide();
   }
 
   function mostrarMensaje(autor, message, fecha, imagen, agente){

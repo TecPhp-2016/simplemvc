@@ -87,9 +87,9 @@
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/">Inicio</a></li>
+            <li><a href="/consulta">Consultas</a></li>
             <?php if ($agenteLogueado['admin'] == 1){ ?>
             <li><a href="/agente">Agentes</a></li>
-            <li><a href="/consulta">Consultas</a></li>
             <li><a href="/formulario">Formularios</a></li>
             <?php } ?>
           </ul>

@@ -28,6 +28,11 @@ class mensajeModel extends AbstractModel{
 		return $data;
 	}
 
+    public function getAllByCase($id_consulta){
+        $data = $this->registry->db->where('consulta_id',$id_consulta)->get($this->table_name);
+        return $data;
+    }
+
 	public function getById($id){
         $data = $this->registry->db->where('id',$id)->getOne($this->table_name);
 

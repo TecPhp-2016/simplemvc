@@ -4,20 +4,37 @@ Class consultaController Extends baseController {
 
 	public function index() {
 		$model = new ConsultaModel($this->registry);
-
-		$datos = $model->getAll();
+        if($_SESSION['agente']['admin']){
+		  $datos = $model->getAll();
+        }else{
+            $datos = $model->getAllMine($_SESSION['agente']['id']);
+        }
 
 		$this->registry->template->datos = $datos;
 		$this->registry->template->show('consulta/index');
 	}
 
 	public function atender($params = array()) {
-		$model = new ConsultaModel($this->registry);
 
+		$model = new ConsultaModel($this->registry, $params['id']);
 		$datos = $model->getById($params['id']);
-
+        if($datos['agente_id'] == null){
+            $datosa['agente_id'] = $_SESSION['agente']['id'];
+            $datosa['estado'] = 'atendida';
+            $model->update($datosa);
+        }  
         $this->registry->template->datos = $datos;
-		$this->registry->template->show('consulta/atender');
+
+        $modelConsulta = new MensajeModel($this->registry);
+        $datosConsulta = $modelConsulta->getAllByCase($params['id']);
+        $this->registry->template->datosConsulta = $datosConsulta;
+
+        $modelAgente = new AgenteModel($this->registry);
+        $datosAgente = $modelAgente->getById($datos['agente_id']);
+        $this->registry->template->datosAgente = $datosAgente;
+
+        $this->registry->template->show('consulta/atender');
+
 	}
 
 	public function save() {
@@ -105,6 +122,35 @@ Class consultaController Extends baseController {
                         'msg' => 'No se pudo guardar la consulta.',
                     );
                 }
+
+            } catch (Exception $e) {
+              $resultado = array(
+                    'success' => false,
+                    'msg' => $e->getMessage(),
+                );
+            }
+
+            echo json_encode($resultado);
+        } else {
+            $this->registry->template->error = 'No existe la ruta';
+            $this->registry->template->show('error404');
+        }
+    }
+
+    public function terminar() {
+        if (isset($_POST['enviar'])){
+            try {
+                unset($_POST['enviar']);
+
+
+                $model = new ConsultaModel($this->registry,$_POST['id']);
+                $ok = $model->update($_POST);
+
+                
+                $resultado = array(
+                    'success' => true
+                );
+                
 
             } catch (Exception $e) {
               $resultado = array(
