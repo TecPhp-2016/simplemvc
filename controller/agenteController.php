@@ -1,7 +1,35 @@
 <?php
 
 Class agenteController Extends baseController {
-	
+	private function saveImage($username){
+			$target_dir = getcwd()."\uploads\\";
+			$target_file = $target_dir . $username;
+			$uploadOk = 1;
+			$imageFileType = pathinfo(basename($_FILES["imagen"]["name"]),PATHINFO_EXTENSION);
+			$target_file = $target_file.".".$imageFileType;
+			// Check if image file is a actual image or fake image
+			if(isset($_POST["submit"])) {
+			    $check = getimagesize($_FILES["imagen"]["tmp_name"]);
+			    if($check !== false) {
+			        echo "File is an image - " . $check["mime"] . ".";
+			        $uploadOk = 1;
+			    } else {
+			        echo "File is not an image.";
+			        $uploadOk = 0;
+			    }
+			}
+			// Check if file already exists
+			if (file_exists($target_file)) {
+			    echo "Sorry, file already exists.";
+			    $uploadOk = 0;
+			}
+			// Check file size
+			if ($_FILES["imagen"]["size"] > 500000) {
+			    echo "Sorry, your file is too large.";
+			    $uploadOk = 0;
+			}
+			 move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file) or die();
+	}
 	public function index(){
 		$model = new AgenteModel($this->registry);
 
@@ -47,13 +75,12 @@ Class agenteController Extends baseController {
 			$model = new AgenteModel($this->registry);
 	        
 	        unset($_POST['enviar']);
-
 			$insertOk = $model->save($_POST);
 
 			if ($insertOk){
 				
 				$usuarios = $model->getAll();
-				var_dump($usuarios);
+				$this->saveImage($_POST["username"]);
 				$this->registry->template->usuarios = $usuarios;
 				$this->registry->template->show('agente/index');
 

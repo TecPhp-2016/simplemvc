@@ -29,7 +29,7 @@
 					$linkToEdit = '/agente/update?id=' . $usuario['id'];
 				?>
 				<tr>
-					<td class="chat"><div class="item"><img src="<?php echo $usuario['imagen']; ?>" alt="user image" class="<?php if ($usuario['online'] == 1) { ?>online<?php } else { ?>offline<?php } ?>"></div></td>
+					<td class="chat"><div class="item"><img src="<?php echo "/uploads/".(empty($usuario['imagen'])?'nop.png':$usuario['imagen']); ?>" alt="user image" class="<?php if ($usuario['online'] == 1) { ?>online<?php } else { ?>offline<?php } ?>"></div></td>
 					<td><?php echo $usuario['username']; ?></td>
 					<td><?php echo $usuario['nombre']; ?></td>
 					<td><?php echo $usuario['email']; ?></td>

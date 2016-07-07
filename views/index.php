@@ -13,7 +13,7 @@
             foreach ($agentes as $key => $agente) {
           ?>
             <li>
-              <img src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user1-128x128.jpg">
+              <img src="<?='/uploads/'. empty($agente['imagen'])?'nop.png':$agente['imagen']?>">
               <a class="users-list-name" style="font-size: 11px;"><?= $agente['nombre']; ?></a>
             </li> 
           <?php } ?>

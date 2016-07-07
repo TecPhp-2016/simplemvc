@@ -58,7 +58,7 @@
     })
     .done(function( result ) {
       if (result.success){
-        var imagen = '<?= $usuario['imagen']?>';
+        var imagen = '<?='/uploads/'. empty($usuario['imagen'])?'nop.png':$usuario['imagen'] ?>';
         mostrarMensaje(autor, message, fecha, imagen, true)
       }
     });

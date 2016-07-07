@@ -2,7 +2,7 @@
 	<div class="col-md-12">
 		<div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="<?= $user['imagen']; ?>" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" src="<?= getcwd().'\uploads\\'.empty($user['imagen'])?'nop.png':$user['imagen']?>" alt="User profile picture">
 
               <h3 class="profile-username text-center"><?= $user['nombre']; ?></h3>
 
@@ -32,7 +32,7 @@
 			          	</div>  
 						<div class="form-group">
 		                	<label for="exampleInputFile">Nueva Imagen</label>
-		                	<input name="imagen" type="file" id="exampleInputFile" value="<?php= $user['imagen']; ?>">
+		                	<input name="imagen" type="file" id="exampleInputFile" value="<?php= '/uploads/'.empty($user['imagen'])?'nop.png':$user['imagen']?>">
 		              	</div>
 						<div class="form-group">
 		                	<input name="update" type="hidden">
