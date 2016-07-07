@@ -9,7 +9,7 @@ Class formularioController Extends baseController {
 
 		$this->registry->template->datos = $datos;
 
-		$this->registry->template->show('formulario/index');
+		//$this->registry->template->show('formulario/index');
 	}
 
 }

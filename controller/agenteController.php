@@ -51,8 +51,9 @@ Class agenteController Extends baseController {
 			$insertOk = $model->save($_POST);
 
 			if ($insertOk){
-				$usuarios = $model->getAll();
 				
+				$usuarios = $model->getAll();
+				var_dump($usuarios);
 				$this->registry->template->usuarios = $usuarios;
 				$this->registry->template->show('agente/index');
 

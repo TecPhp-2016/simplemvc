@@ -28,7 +28,6 @@ Class indexController Extends baseController {
 	        unset($_POST['enviar']);
 
 			$insertOk = $model->save($_POST);
-
 			if ($insertOk){
 				$this->registry->template->mensajeForm = 'Mensaje enviado, nuestros agentes se contactaran con usted a la brevedad';
 				$this->registry->template->show('index');

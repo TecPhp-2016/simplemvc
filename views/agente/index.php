@@ -8,7 +8,7 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Listado de Agentes</h3>
-              <a class="pull-right btn btn-primary btn-flat" href="agente/save" class="uppercase">Agregar Agente</a>
+              <a class="pull-right btn btn-primary btn-flat" href="/agente/save" class="uppercase">Agregar Agente</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
