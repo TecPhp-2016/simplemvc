@@ -122,7 +122,8 @@
         var pusher  = new Pusher('bfe07b86fb5d707a3087', { encrypted: true });
         var channel = pusher.subscribe('consulta-' + result.consulta);
         channel.bind('mensaje', function(data) {
-          if (data.autor != 'usuario'){
+          console.log(data);
+          if (data.tipo != 'usuario'){
             mostrarMensaje(data.autor, data.mensaje, data.fecha, data.imagen, true);
           }
         });

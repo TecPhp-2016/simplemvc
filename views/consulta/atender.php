@@ -82,11 +82,11 @@
     var autor       = $('#autor').val();
     var consulta_id = $('#consulta_id').val();
     var message     = $('#message').val();
-    var fecha       = new Date();
+    var fecha       = moment();
     if(message){
       $.ajax({
         method  : 'POST',
-        url     : 'http://localhost:8888/consulta/mensajeSave',
+        url     : 'http://localhost:8888/consulta/mensajeSave?ajax=true',
         data    : { consulta_id: consulta_id, autor : 'agente', mensaje : message, enviar : true}
       })
       .done(function( result ) {

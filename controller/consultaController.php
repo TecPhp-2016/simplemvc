@@ -39,8 +39,6 @@ class consultaController Extends baseController {
 	}
 
 	public function save() {
-        $this->verificarUsuario();
-
         if (isset($_POST['enviar'])){
             try {
                 unset($_POST['enviar']);
@@ -123,6 +121,7 @@ class consultaController Extends baseController {
                     }else{
                         $mensajeData['autor'] = $consulta['usuario'];
                     }
+                    $mensajeData['tipo'] = $_POST['autor'];
 
                     $pusher->trigger('consulta-' . $consultaId, 'mensaje', $mensajeData);
 
