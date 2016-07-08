@@ -108,7 +108,7 @@
           var html =  '<div class="direct-chat-msg right">' +
                         '<div class="direct-chat-info clearfix">' +
                           '<span class="direct-chat-name pull-right">' + autor + '</span>' +
-                          '<span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>' +
+                          '<span class="direct-chat-timestamp pull-left">' + moment().format('DD/MM/YY HH:mm:ss') + '</span>' +
                         '</div>' +
                         '<img class="direct-chat-img" src="http://localhost:8888/vendor/almasaeed2010/adminlte/dist/img/avatar04.png">' +
                         '<div class="direct-chat-text">' + consulta + '</div>' +
@@ -122,7 +122,6 @@
         var pusher  = new Pusher('bfe07b86fb5d707a3087', { encrypted: true });
         var channel = pusher.subscribe('consulta-' + result.consulta);
         channel.bind('mensaje', function(data) {
-          console.log(data)
           if (data.autor != 'usuario'){
             mostrarMensaje(data.autor, data.mensaje, data.fecha, data.imagen, true);
           }
@@ -135,38 +134,41 @@
     var autor       = $('#autor').val();
     var consulta_id = $('#consulta_id').val();
     var message     = $('#message').val();
-    var fecha       = new Date();
+    var fecha       = moment();
 
-    $.ajax({
-      method  : 'POST',
-      url     : 'http://localhost:8888/consulta/mensajeSave?ajax=true',
-      data    : { consulta_id: consulta_id, autor : 'usuario', mensaje : message, enviar : true}
-    })
-    .done(function( result ) {
-      if (result.success){
-        var imagen = 'http://localhost:8888/vendor/almasaeed2010/adminlte/dist/img/avatar04.png';
-        mostrarMensaje(autor, message, fecha, imagen)
-      }
-    });
+    if(message){
+      $.ajax({
+        method  : 'POST',
+        url     : 'http://localhost:8888/consulta/mensajeSave?ajax=true',
+        data    : { consulta_id: consulta_id, autor : 'usuario', mensaje : message, enviar : true}
+      })
+      .done(function( result ) {
+        if (result.success){
+          var imagen = 'http://localhost:8888/vendor/almasaeed2010/adminlte/dist/img/avatar04.png';
+          mostrarMensaje(autor, message, fecha, imagen)
+        }
+      });  
+    }
   }
 
   function mostrarMensaje(autor, message, fecha, imagen, agente){
     $('#message').val('');
+    var html = '';
 
     if(agente){
-      var html =  '<div class="direct-chat-msg">' +
+      html =  '<div class="direct-chat-msg">' +
                   '<div class="direct-chat-info clearfix">' +
                     '<span class="direct-chat-name pull-left">' + autor + '</span>' +
-                    '<span class="direct-chat-timestamp pull-right">' + fecha + '</span>' +
+                    '<span class="direct-chat-timestamp pull-right">' + moment(fecha).format('DD/MM/YY HH:mm:ss') + '</span>' +
                   '</div>' +
                   '<img class="direct-chat-img" src="' + imagen + '">' +
                   '<div class="direct-chat-text">' + message + '</div>' +
                 '</div>';
     }else{
-      var html =  '<div class="direct-chat-msg right">' +
+      html =  '<div class="direct-chat-msg right">' +
                   '<div class="direct-chat-info clearfix">' +
                     '<span class="direct-chat-name pull-right">' + autor + '</span>' +
-                    '<span class="direct-chat-timestamp pull-left">' + fecha + '</span>' +
+                    '<span class="direct-chat-timestamp pull-left">' + moment(fecha).format('DD/MM/YY HH:mm:ss') + '</span>' +
                   '</div>' +
                   '<img class="direct-chat-img" src="' + imagen + '">' +
                   '<div class="direct-chat-text">' + message + '</div>' +
@@ -182,31 +184,31 @@
 <?php } else { ?>
 
 <div class="box box-info">
-  <?php if($mensajeForm) {?>
-    <div class="alert alert-success alert-dismissible">
-      <?php echo $mensajeForm; ?>
-    </div>
-  <?php }?>
   <div class="box-header with-border">
     <h3 class="box-title">Mesa de ayuda - Consultas</h3>
   </div>
-  <!-- /.box-header -->
-  <!-- form start -->
-  <form class="form-horizontal" action="index/formulario" method="POST">
-    <div class="box-body">
-      <div class="pad">
-        <div class="callout callout-info" style="margin-bottom: 0!important;">
-          <h4><i class="fa fa-info"></i> No hay agentes disponibles</h4>
-          En este momento no hay ningun agente disponible, deje un mensaje y nos comunicaremos con usted a la brevedad. Desde ya muchas gracias.
-        </div>
+  <div class="box-body">
+    <div class="pad">
+      <div class="callout callout-info" style="margin-bottom: 0!important;">
+        <h4><i class="fa fa-info"></i> No hay agentes disponibles</h4>
+        En este momento no hay ningun agente disponible, deje un mensaje y nos comunicaremos con usted a la brevedad. Desde ya muchas gracias.
       </div>
     </div>
+  </div>
 </div>
 
 <div class="box box-info">
-  <div class="box-header with-border">
-    <h3 class="box-title">Deja un mensaje</h3>
-  </div>
+  <form class="form-horizontal" action="index/formulario" method="POST">
+    <div class="box-header with-border">
+      <h3 class="box-title">Deja un mensaje</h3>
+    </div>
+    <div class="box-body">
+      <?php if($mensajeForm) {?>
+      <div class="alert alert-success alert-dismissible">
+        <?php echo $mensajeForm; ?>
+      </div>
+      <?php }?>
+    </div>
     <div class="box-body">
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Correo</label>
@@ -229,7 +231,6 @@
           <textarea name="consulta" type="text" class="form-control" id="inputConsulta" placeholder="Consulta"></textarea>
         </div>
       </div>
-
     </div>
     <!-- /.box-body -->
     <div class="box-footer">

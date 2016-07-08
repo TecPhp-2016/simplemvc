@@ -1,6 +1,6 @@
 <?php
 
-Class error404Controller Extends baseController {
+class error404Controller Extends baseController {
 
 	public function index() 
 	{

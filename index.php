@@ -1,7 +1,7 @@
 <?php
   session_start();
 
-  $base_url='http://localhost:8888/';
+  $base_url = 'http://localhost:8888/';
  
   /*** error reporting on ***/
   error_reporting(E_ALL);
@@ -75,40 +75,44 @@
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
+
   <header class="main-header">
     <nav class="navbar navbar-static-top">
-      <div class="container">
+      <div class="container-fluid">
         <div class="navbar-header">
           <a href="/" class="navbar-brand"><b>Mesa</b> de ayuda</a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
         </div>
-        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+
+        <div class="collapse navbar-collapse" id="navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/">Inicio</a></li>
+            <?php if ($agenteLogueado){ ?>
             <li><a href="/consulta">Consultas</a></li>
-            <?php if ($agenteLogueado['admin'] == 1){ ?>
-            <li><a href="/agente">Agentes</a></li>
-            <li><a href="/formulario">Formularios</a></li>
+              <?php if ($agenteLogueado['admin'] == 1){ ?>
+              <li><a href="/agente">Agentes</a></li>
+              <li><a href="/formulario">Formularios</a></li>
+              <?php } ?>
+            <?php } ?>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <?php if ($agenteLogueado){ ?>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown"><?php echo $agenteLogueado['nombre'] ?> <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="/agente/perfil?id=<?php echo $agenteLogueado['id']?>">Perfil</a></li>
+                  <li><a href="/agente/disponible">Cambiar a "No Disponible"</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/login/salir">Cerrar Sesion</a></li>
+                </ul>
+              </li>
+            <?php }else{ ?>
+              <li><a href="/login">Iniciar Sesi&oacute;n</a></li>
             <?php } ?>
           </ul>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-          <?php if ($agenteLogueado){ ?>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown"><?php echo $agenteLogueado['nombre'] ?> <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="/agente/perfil?id=<?php echo $agenteLogueado['id']?>">Perfil</a></li>
-              <li><a href="/agente/disponible">Cambiar a "No Disponible"</a></li>
-              <li class="divider"></li>
-              <li><a href="/login/salir">Cerrar Sesion</a></li>
-            </ul>
-          </li>
-          <?php }else{ ?>
-            <li><a href="/login">Iniciar Sesi&oacute;n</a></li>
-          <?php } ?>
-        </ul>
       </div>
     </nav>
   </header>
@@ -147,6 +151,7 @@
 <script src="<?php echo $base_url; ?>vendor/almasaeed2010/adminlte/dist/js/app.min.js"></script>
 <!-- PUSHER -->
 <script src="https://js.pusher.com/3.1/pusher.min.js"></script>
+<!-- MOMENT -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 </body>
 </html>
-

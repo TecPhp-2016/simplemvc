@@ -6,7 +6,7 @@
     <h3 class="box-title">Consulta</h3>
     <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
       <?php
-        if($_SESSION['agente']['id']==$datos['agente_id'] && $datos['estado'] === "atendida"){
+        if($_SESSION['agente']['id']== $datos['agente_id'] && $datos['estado'] === "atendida"){
       ?>
           <div class="box-terminar">
             <button type="button" onClick="terminarConsulta()" class="btn btn-primary btn-flat">Terminar</button>
@@ -19,29 +19,28 @@
   
   <div class="box-body">
 
-  <div class="direct-chat-messages" id="direct-chat-messages" style="height:350px;">
-    <?php
-      $usrImg = 'http://localhost:8888/vendor/almasaeed2010/adminlte/dist/img/avatar04.png';
-      foreach ($datosConsulta as $consulta) {
-    ?>
-      <div class="direct-chat-msg <?= $consulta['autor'] == 'agente' ? 'right' : '' ?>">
-        <div class="direct-chat-info clearfix">
-          <span class="direct-chat-name pull-<?= $consulta['autor'] == 'agente' ? 'right' : 'leff' ?>"> <?= $consulta['autor'] ?> </span>
-          <span class="direct-chat-timestamp pull-<?= $consulta['autor'] == 'agente' ? 'right' : 'leff' ?>"> <?= date('d/m/Y h:m:s',strtotime($consulta['fecha'])); ?> </span>
+    <div class="direct-chat-messages" id="direct-chat-messages" style="height:650px;">
+      <?php
+        $usrImg = 'http://localhost:8888/vendor/almasaeed2010/adminlte/dist/img/avatar04.png';
+        foreach ($datosConsulta as $consulta) {
+      ?>
+        <div class="direct-chat-msg <?= $consulta['autor'] == 'agente' ? 'right' : '' ?>">
+          <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name pull-<?= $consulta['autor'] == 'agente' ? 'right' : 'leff' ?>"> <?= $consulta['autor'] == 'agente' ? $datosAgente['nombre'] : $datos['usuario'] ?> </span>
+            <span class="direct-chat-timestamp pull-<?= $consulta['autor'] == 'agente' ? 'right' : 'leff' ?>"> <?= date('d/m/Y h:m:s',strtotime($consulta['fecha'])); ?> </span>
+          </div>
+          <img class="direct-chat-img" src="<?= $consulta['autor'] == 'agente' ? '/uploads/' . $datosAgente['imagen'] : $usrImg ?>">
+          <div class="direct-chat-text"> <?= $consulta['mensaje'] ?> </div>
         </div>
-        <img class="direct-chat-img" src="<?= $consulta['autor'] == 'agente' ? $datosAgente['imagen'] : $usrImg ?>">
-        <div class="direct-chat-text"> <?= $consulta['mensaje'] ?> </div>
-      </div>
-    
-    <?php
-      }
-
-    ?>
-  </div>
+      
+      <?php
+        }
+      ?>
+    </div>
 
   </div>
   <?php
-    if($_SESSION['agente']['id']==$datos['agente_id']){
+    if($_SESSION['agente']['id'] == $datos['agente_id'] && $datos['estado'] != 'finalizada'){
   ?>
   <!-- /.box-body -->
   <div class="box-footer">
@@ -84,18 +83,19 @@
     var consulta_id = $('#consulta_id').val();
     var message     = $('#message').val();
     var fecha       = new Date();
-
-    $.ajax({
-      method  : 'POST',
-      url     : 'http://localhost:8888/consulta/mensajeSave?ajax=true',
-      data    : { consulta_id: consulta_id, autor : 'agente', mensaje : message, enviar : true}
-    })
-    .done(function( result ) {
-      if (result.success){
-        var imagen = '<?='/uploads/'. empty($usuario['imagen'])?'nop.png':$usuario['imagen'] ?>';
-        mostrarMensaje(autor, message, fecha, imagen, true)
-      }
-    });
+    if(message){
+      $.ajax({
+        method  : 'POST',
+        url     : 'http://localhost:8888/consulta/mensajeSave',
+        data    : { consulta_id: consulta_id, autor : 'agente', mensaje : message, enviar : true}
+      })
+      .done(function( result ) {
+        if (result.success){
+          var imagen = '<?= empty($usuario['imagen']) ? 'nop.png' : '/uploads/' . $usuario['imagen'] ?>';
+          mostrarMensaje(autor, message, fecha, imagen, true)
+        }
+      });
+    }
   }
 
   function terminarConsulta(){
@@ -106,8 +106,6 @@
       data    : { id: consulta_id, estado: 'finalizada', enviar : true}
     })
     .done(function( result ) {
-      console.log('result');
-      console.log('result');
       if (result.success){
         ocultarControler();
       }
@@ -126,7 +124,7 @@
       var html =  '<div class="direct-chat-msg right">' +
                   '<div class="direct-chat-info clearfix">' +
                     '<span class="direct-chat-name pull-right">' + autor + '</span>' +
-                    '<span class="direct-chat-timestamp pull-left">' + fecha + '</span>' +
+                    '<span class="direct-chat-timestamp pull-left">' + moment(fecha).format('DD/MM/YY HH:mm:ss') + '</span>' +
                   '</div>' +
                   '<img class="direct-chat-img" src="' + imagen + '">' +
                   '<div class="direct-chat-text">' + message + '</div>' +
@@ -135,7 +133,7 @@
       var html =  '<div class="direct-chat-msg">' +
                   '<div class="direct-chat-info clearfix">' +
                     '<span class="direct-chat-name pull-left">' + autor + '</span>' +
-                    '<span class="direct-chat-timestamp pull-right">' + fecha + '</span>' +
+                    '<span class="direct-chat-timestamp pull-right">' + moment(fecha).format('DD/MM/YY HH:mm:ss') + '</span>' +
                   '</div>' +
                   '<img class="direct-chat-img" src="' + imagen + '">' +
                   '<div class="direct-chat-text">' + message + '</div>' +

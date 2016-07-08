@@ -1,6 +1,6 @@
 <?php
 
-Class loginController Extends baseController {
+class loginController Extends baseController {
 
 	public function index(){
 		if (isset($_POST['enviar'])){
@@ -15,8 +15,7 @@ Class loginController Extends baseController {
 
 				$user->update(['online' => 1]);
 
-				header("Location: http://localhost:8888");
-				die();
+				header("Location: http://localhost:8888"); die();
 			}else{
 				$this->registry->template->error = 'Usuario o clave incorrectos. Contactese con un agente administrador porque puede ser que usted este bloqueado';
 				$this->registry->template->show('/login');
@@ -28,11 +27,14 @@ Class loginController Extends baseController {
 	}
 
 	public function salir(){
-		$user = new AgenteModel($this->registry, $_SESSION['agente']["id"]);
-		$user->update(['online' => 0]);
+		if($_SESSION && $_SESSION['agente']){
+			$user = new AgenteModel($this->registry, $_SESSION['agente']["id"]);
+			$user->update(['online' => 0]);
 
-		unset($_SESSION['agente']);
-		header("Location: http://localhost:8888");
-		die();
+			unset($_SESSION['agente']);	
+		}
+
+		$this->registry->template->mensajeForm = '';
+        $this->registry->template->show('index');
 	}
 }

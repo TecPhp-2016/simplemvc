@@ -1,4 +1,5 @@
 <?php
+
 class agenteModel extends AbstractModel{
     private $table_name = 'agentes';
 

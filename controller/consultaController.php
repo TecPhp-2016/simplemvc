@@ -1,11 +1,13 @@
 <?php
 
-Class consultaController Extends baseController {
+class consultaController Extends baseController {
 
 	public function index() {
+        $this->verificarUsuario();
+
 		$model = new ConsultaModel($this->registry);
         if($_SESSION['agente']['admin']){
-		  $datos = $model->getAll();
+            $datos = $model->getAll();
         }else{
             $datos = $model->getAllMine($_SESSION['agente']['id']);
         }
@@ -15,7 +17,6 @@ Class consultaController Extends baseController {
 	}
 
 	public function atender($params = array()) {
-
 		$model = new ConsultaModel($this->registry, $params['id']);
 		$datos = $model->getById($params['id']);
         if($datos['agente_id'] == null){
@@ -23,6 +24,7 @@ Class consultaController Extends baseController {
             $datosa['estado'] = 'atendida';
             $model->update($datosa);
         }  
+        $datos = $model->getById($params['id']);
         $this->registry->template->datos = $datos;
 
         $modelConsulta = new MensajeModel($this->registry);
@@ -34,10 +36,11 @@ Class consultaController Extends baseController {
         $this->registry->template->datosAgente = $datosAgente;
 
         $this->registry->template->show('consulta/atender');
-
 	}
 
 	public function save() {
+        $this->verificarUsuario();
+
         if (isset($_POST['enviar'])){
             try {
                 unset($_POST['enviar']);
@@ -105,11 +108,21 @@ Class consultaController Extends baseController {
 
                 $consultaId = $_POST['consulta_id'];
 
+                $model = new ConsultaModel($this->registry);
+                $consulta = $model->getById($consultaId);
+
                 $mensaje = new mensajeModel($this->registry);
                 $ok = $mensaje->save($_POST);
 
                 if ($ok){
                     $mensajeData = $mensaje->getById($ok);
+
+                    if($_POST['autor'] == "agente"){
+                        $mensajeData['imagen'] = "/uploads/" . $_SESSION['agente']['imagen'];
+                        $mensajeData['autor'] = $_SESSION['agente']['nombre'];
+                    }else{
+                        $mensajeData['autor'] = $consulta['usuario'];
+                    }
 
                     $pusher->trigger('consulta-' . $consultaId, 'mensaje', $mensajeData);
 
@@ -138,19 +151,18 @@ Class consultaController Extends baseController {
     }
 
     public function terminar() {
+        $this->verificarUsuario();
+
         if (isset($_POST['enviar'])){
             try {
                 unset($_POST['enviar']);
 
-
                 $model = new ConsultaModel($this->registry,$_POST['id']);
                 $ok = $model->update($_POST);
 
-                
                 $resultado = array(
                     'success' => true
                 );
-                
 
             } catch (Exception $e) {
               $resultado = array(
@@ -163,6 +175,16 @@ Class consultaController Extends baseController {
         } else {
             $this->registry->template->error = 'No existe la ruta';
             $this->registry->template->show('error404');
+        }
+    }
+
+    private function verificarUsuario (){
+        $agenteLogueado = $_SESSION ? $_SESSION['agente'] : false;
+        if(!$agenteLogueado){
+            $this->registry->template->blog_heading = 'Error al guardar los datos';
+            $this->registry->template->error = 'No se pudo guardar';
+            $this->registry->template->show('error404');
+            die();
         }
     }
 

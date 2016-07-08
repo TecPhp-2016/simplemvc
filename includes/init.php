@@ -34,7 +34,7 @@ function __autoload($class_name) {
 $registry = new registry;
 
  /*** create the database registry object ***/
-$registry->db = new MysqliDb ('localhost', 'root', '', 'application');
+$registry->db = new MysqliDb ('localhost', 'root', 'root', 'application');
 
 // Register an event for every time a user is created
 \simple_event_dispatcher\Events::register('user', 'create', function($namespace, $event, &$parameters) { 

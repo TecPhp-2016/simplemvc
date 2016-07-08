@@ -1,4 +1,5 @@
 <?php
+
 class mensajeModel extends AbstractModel{
     private $table_name = 'mensajes';
 

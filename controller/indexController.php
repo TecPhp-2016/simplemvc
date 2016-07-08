@@ -1,6 +1,6 @@
 <?php
 
-Class indexController Extends baseController {
+class indexController Extends baseController {
 
 	public function index() {
 		if ($_SESSION && $_SESSION['agente']){

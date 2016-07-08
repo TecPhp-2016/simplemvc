@@ -1,4 +1,5 @@
 <?php
+
 class formularioModel extends AbstractModel{
     private $table_name = 'formularios';
 

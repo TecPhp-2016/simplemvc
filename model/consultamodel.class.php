@@ -1,4 +1,5 @@
 <?php
+
 class consultaModel extends AbstractModel{
     private $table_name = 'consultas';
 
@@ -24,7 +25,7 @@ class consultaModel extends AbstractModel{
     }
 
     public function getAll(){
-		$data = $this->registry->db->where('estado', 'finalizada','!=')->get($this->table_name);
+		$data = $this->registry->db->where('estado', 'pendiente', '!=')->get($this->table_name);
 		return $data;
 	}
 
